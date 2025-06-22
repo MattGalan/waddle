@@ -1,7 +1,7 @@
 GAIT = 20
-DOWN_FOOT_SIZE = 2
-UP_FOOT_SIZE = 4
 MAX_FOOTPRINTS = 5
+FOOT_WIDTH = 8
+FOOT_HEIGHT = 7
 
 function _init()
   px = 20
@@ -67,4 +67,5 @@ function _draw()
     speed = speed * -1
   end
 
+  draw_powerups()
 end
