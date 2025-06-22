@@ -18,6 +18,12 @@ function init_player()
   up_foot = entity:new({
     pos = { x = 0, y = 0 },
     sprite = 0,
+    hitbox = {
+      bottom = 1,
+      right = 7,
+      top = 7,
+      left = 0
+    }
   })
 
   for i = 1,MAX_FOOTPRINTS do
