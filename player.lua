@@ -11,12 +11,12 @@ function init_player()
   footprint_index = 1
 
   down_foot = entity:new({
-    pos = { x = 20, y = 40 },
+    pos = point:new({ x = 20, y = 40 }),
     sprite = 1,
   })
 
   up_foot = entity:new({
-    pos = { x = 0, y = 0 },
+    pos = point:new({ x = 0, y = 0 }),
     sprite = 0,
     hitbox = {
       bottom = 1,

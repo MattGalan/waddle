@@ -1,5 +1,5 @@
 powerup = entity:new({
-  pos = { x = -100, y = -100 },
+  pos = point:new({ x = -100, y = -100 }),
   duration = 150,
   spawn = function(_ENV)
     pos.x = rnd(119)
@@ -23,6 +23,7 @@ speed_powerup = powerup:new({
 
   on_start = function()
     speed = speed * 1.5
+    add_floating_text("coffee!", up_foot.pos)
   end,
 
   on_end = function()
@@ -30,10 +31,9 @@ speed_powerup = powerup:new({
   end,
 })
 
-powerups = { speed_powerup }
-actives = {}
-
 function init_powerups()
+  powerups = { speed_powerup }
+  actives = {}
 end
 
 function update_powerups()
