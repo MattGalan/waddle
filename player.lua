@@ -45,13 +45,18 @@ function draw_player()
   end
 
   down_foot:draw()
+  foot_above = up_foot.pos.y < down_foot.pos.y
+
+  if (foot_above) then up_foot:draw() end
+
   line(
     down_foot.pos.x + 2,
     down_foot.pos.y + 3,
     up_foot.pos.x + 3,
     up_foot.pos.y + 4
   )
-  up_foot:draw()
+
+  if (not foot_above) then up_foot:draw() end
 
   if btn(4) then
     angle = angle + speed * 0.4
