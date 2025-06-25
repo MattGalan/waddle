@@ -1,6 +1,6 @@
 powerup = entity:new({
   pos = point:new({ x = -100, y = -100 }),
-  duration = 150,
+  duration = 128,
   spawn = function(_ENV)
     pos.x = rnd(119)
     pos.y = rnd(119)
@@ -12,10 +12,8 @@ speed_powerup = powerup:new({
   sprite = 18,
 
   hitbox = {
-    bottom = 0,
-    right = 6,
-    top = 7,
-    left = 0
+    width = 6,
+    height = 6,
   },
 
   bar_color_top = 9,

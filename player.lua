@@ -19,10 +19,8 @@ function init_player()
     pos = point:new({ x = 0, y = 0 }),
     sprite = 0,
     hitbox = {
-      bottom = 1,
-      right = 7,
-      top = 7,
-      left = 0
+      width = 8,
+      height = 7
     }
   })
 

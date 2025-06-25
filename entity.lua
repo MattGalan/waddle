@@ -22,10 +22,10 @@ entity = class:new({
 
   intersects = function(_ENV, other)
     return (
-      pos.x + hitbox.left < other.pos.x + other.hitbox.right and
-      pos.x + hitbox.right > other.pos.x + other.hitbox.left and
-      pos.y + hitbox.top > other.pos.y + other.hitbox.bottom and
-      pos.y + hitbox.bottom < other.pos.y + other.hitbox.top
+      pos.x < other.pos.x + other.hitbox.width and
+      pos.x + hitbox.width > other.pos.x and
+      pos.y + hitbox.height > other.pos.y and
+      pos.y < other.pos.y + other.hitbox.height
     )
   end,
 })
