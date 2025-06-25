@@ -1,9 +1,16 @@
 powerup = entity:new({
   pos = point:new({ x = -100, y = -100 }),
   duration = 128,
+  show_name = function(_ENV)
+    add_floating_text(name, point:new({
+      x = up_foot.pos.x,
+      y = up_foot.pos.y - 4
+    }))
+  end
 })
 
 speed_powerup = powerup:new({
+  name = "coffee!",
   sprite = 18,
   hitbox = {
     width = 6,
@@ -23,6 +30,7 @@ speed_powerup = powerup:new({
 })
 
 slow_powerup = powerup:new({
+  name = "ice cream!",
   sprite = 20,
   hitbox = {
     width = 4,
@@ -33,7 +41,6 @@ slow_powerup = powerup:new({
 
   on_start = function()
     speed = speed / 2
-    add_floating_text("ice cream!", up_foot.pos)
   end,
 
   on_end = function()
@@ -42,6 +49,7 @@ slow_powerup = powerup:new({
 })
 
 grow_powerup = powerup:new({
+  name = "green bean!",
   sprite = 19,
   hitbox = {
     width = 6,
@@ -59,11 +67,31 @@ grow_powerup = powerup:new({
   end
 })
 
+shrink_powerup = powerup:new({
+  name = "lemon!",
+  sprite = 21,
+  hitbox = {
+    width = 6,
+    height = 7,
+  },
+  bar_color_top = 10,
+  bar_color_bottom = 9,
+
+  on_start = function()
+    gait = gait / 2
+  end,
+
+  on_end = function()
+    gait = gait * 2
+  end
+})
+
 function init_powerups()
   powerups = {
     speed_powerup,
     slow_powerup,
-    grow_powerup
+    grow_powerup,
+    shrink_powerup,
   }
   actives = {}
   spawn_powerup()
@@ -82,6 +110,7 @@ function update_powerups()
         remaining = p.duration,
       })
       p:on_start()
+      p:show_name()
       p.pos = point:new({ x = -100, y = -100 })
       spawn_powerup()
     end
