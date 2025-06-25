@@ -1,11 +1,36 @@
 powerup = entity:new({
   pos = point:new({ x = -100, y = -100 }),
   duration = 128,
-  show_name = function(_ENV)
+  super_on_start = function(_ENV)
     add_floating_text(name, point:new({
       x = up_foot.pos.x,
       y = up_foot.pos.y - 4
     }))
+
+    burst_particles = particles:new({
+      spawn_part = function()
+        return {
+          pos = {
+            x = pos.x + hitbox.width / 2,
+            y = pos.y + hitbox.height / 2
+          },
+          lifespan = 10 + rnd(2),
+          direction = rnd(),
+          color = rnd({ bar_color_top, bar_color_bottom }),
+          speed = 1.8 + rnd(0.2)
+        }
+      end,
+      update_part = function(p)
+        p.pos.x = p.pos.x + cos(p.direction) * p.speed
+        p.pos.y = p.pos.y + sin(p.direction) * p.speed
+        p.speed = max(p.speed - .2, 0)
+      end,
+      draw_part = function(p)
+        pset(p.pos.x, p.pos.y, p.color)
+      end
+    })
+
+    add_particles(burst_particles, 40)
   end
 })
 
@@ -21,7 +46,6 @@ speed_powerup = powerup:new({
 
   on_start = function()
     speed = speed * 1.5
-    add_floating_text("coffee!", up_foot.pos)
   end,
 
   on_end = function()
@@ -110,7 +134,7 @@ function update_powerups()
         remaining = p.duration,
       })
       p:on_start()
-      p:show_name()
+      p:super_on_start()
       p.pos = point:new({ x = -100, y = -100 })
       spawn_powerup()
     end
@@ -126,7 +150,7 @@ function update_powerups()
 end
 
 function draw_powerups()
-  for _, p in pairs(powerups) do
+  for _,p in pairs(powerups) do
     p:draw()
   end
 
