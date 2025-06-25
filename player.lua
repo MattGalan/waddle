@@ -1,4 +1,3 @@
-GAIT = 20
 MAX_FOOTPRINTS = 5
 FOOT_WIDTH = 8
 FOOT_HEIGHT = 7
@@ -7,6 +6,7 @@ function init_player()
   angle = 20
   speed = 0.025
   slow = 1
+  gait = 20
   footprints = {}
   footprint_index = 1
 
@@ -33,8 +33,8 @@ function init_player()
 end
 
 function update_player()
-  up_foot.pos.x = down_foot.pos.x + cos(angle) * GAIT
-  up_foot.pos.y = down_foot.pos.y + sin(angle) * GAIT
+  up_foot.pos.x = down_foot.pos.x + cos(angle) * gait
+  up_foot.pos.y = down_foot.pos.y + sin(angle) * gait
 end
 
 function draw_player()

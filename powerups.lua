@@ -41,8 +41,30 @@ slow_powerup = powerup:new({
   end
 })
 
+grow_powerup = powerup:new({
+  sprite = 19,
+  hitbox = {
+    width = 6,
+    height = 7,
+  },
+  bar_color_top = 11,
+  bar_color_bottom = 3,
+
+  on_start = function()
+    gait = gait * 1.5
+  end,
+
+  on_end = function()
+    gait = gait / 1.5
+  end
+})
+
 function init_powerups()
-  powerups = { speed_powerup, slow_powerup }
+  powerups = {
+    speed_powerup,
+    slow_powerup,
+    grow_powerup
+  }
   actives = {}
   spawn_powerup()
 end
