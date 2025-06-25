@@ -1,21 +1,14 @@
 powerup = entity:new({
   pos = point:new({ x = -100, y = -100 }),
   duration = 128,
-  spawn = function(_ENV)
-    pos.x = rnd(119)
-    pos.y = rnd(119)
-  end,
 })
 
 speed_powerup = powerup:new({
-  pos = { x = rnd(119), y = rnd(119) },
   sprite = 18,
-
   hitbox = {
     width = 6,
     height = 6,
   },
-
   bar_color_top = 9,
   bar_color_bottom = 4,
 
@@ -29,9 +22,33 @@ speed_powerup = powerup:new({
   end,
 })
 
+slow_powerup = powerup:new({
+  sprite = 20,
+  hitbox = {
+    width = 4,
+    height = 8,
+  },
+  bar_color_top = 7,
+  bar_color_bottom = 4,
+
+  on_start = function()
+    speed = speed / 2
+    add_floating_text("ice cream!", up_foot.pos)
+  end,
+
+  on_end = function()
+    speed = speed * 2
+  end
+})
+
 function init_powerups()
-  powerups = { speed_powerup }
+  powerups = { speed_powerup, slow_powerup }
   actives = {}
+  spawn_powerup()
+end
+
+function spawn_powerup()
+  rnd(powerups).pos = point:new({ x = rnd(119), y = rnd(119) })
 end
 
 function update_powerups()
@@ -43,7 +60,8 @@ function update_powerups()
         remaining = p.duration,
       })
       p:on_start()
-      p:spawn()
+      p.pos = point:new({ x = -100, y = -100 })
+      spawn_powerup()
     end
   end
   
@@ -57,7 +75,9 @@ function update_powerups()
 end
 
 function draw_powerups()
-  speed_powerup:draw()
+  for _, p in pairs(powerups) do
+    p:draw()
+  end
 
   for i, a in pairs(actives) do
     i = (i - 1) * 2
